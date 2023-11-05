@@ -1,0 +1,9 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "HttpIntegrationTemplate with arg": {
+      "commandName": "Project",
+      "commandLineArgs": "<token> <candidateId>"
+    }
+  }
+}
