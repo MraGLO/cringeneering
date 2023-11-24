@@ -16,7 +16,9 @@ if (string.IsNullOrEmpty(candidateId) || candidateId == token)
 
 var client = new HttpClient
 {
-    DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", token) }
+    DefaultRequestHeaders = { Authorization = new AuthenticationHeaderValue("Bearer", token) },
+    BaseAddress = new Uri("https://api-feature-configurator.dev.skillaz.ru/")
+    
 };
 
 var candidateService = new CandidateService(client);
