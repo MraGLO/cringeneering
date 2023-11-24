@@ -7,7 +7,7 @@ if (string.IsNullOrEmpty(token))
     throw new Exception("Укажите токен");
 }
 
-var candidateId = args.LastOrDefault();
+var candidateId = "<тут укажите айди кандидата>";
 
 if (string.IsNullOrEmpty(candidateId) || candidateId == token)
 {

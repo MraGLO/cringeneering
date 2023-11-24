@@ -1,34 +1,39 @@
-﻿## Задание
+﻿# Задание
 Необходимо доработать консольное приложение - реализовать методы получения кандидатов и вакансий по API, а также проверку соответствия кандидата и его вакансии.
-#### Поля вакансии
-- `Name` - название вакансии
-- `ExtraData.RequiredSkills` - требуемые навыки, массив строк
-- `ExtraData.WorkExperience` - требуемый опыт работы, число
-- `ExtraData.Citizenship` - требуемое гражданство, строка, одно из значений
-    - `Rus`
-    - `Kz`
-    - `Any`
-- `ExtraData.NeedDriverLicense` - требуется наличие водительских прав
-#### Поля кандидата
+
+В классе `CandidateService` необходимо реализовать все методы с пометкой `//todo:`
+А сюда скидываем результаты: https://forms.gle/z4RNScRbb3Ydvi9V8
+<br />
+<h3>1️⃣ GetCandidateInfo - получение кандидата по API</h3>
+
+POST `/open-api/objects/candidates/filtered`
+
+<details>
+  <summary>Поля кандидата</summary><br />
+
 - `CommonCandidateInfo.Skills` - навыки, массив строк
 - `CommonCandidateInfo.Citizenship` - гражданства кандидата, массив строк
 - `CommonCandidateInfo.WorkExperience` - опыт работы, массив объектов
 - `CommonCandidateInfo.DrivingExperiences` - опыт вождения, массив объектов
 
-### Шаблон приложения
-В классе `CandidateService` необходимо реализовать все методы с пометкой `//todo:`
-- `GetCandidateInfo` - получение кандидата по API
-    - POST `/open-api/objects/candidates/filtered`  
-      Тело запроса:
-```json  
+</details>
+
+<details>
+  <summary>Тело запроса</summary><br />
+
+```json
 {
   "Ids": [
     "string"
   ]
 } 
-```  
-Тело ответа:
-```json  
+```
+
+</details>
+<details>
+  <summary>Тело ответа</summary><br />
+
+```json
 {
   "Items": [
     {
@@ -93,12 +98,30 @@
   "TotalPages": 0,
   "TotalItems": 0
 }
-```  
+```
+</details>
+<br />
+<h3>2️⃣ GetVacancyInfo - получение вакансии по API</h3>
 
-- `GetVacancyInfo` - получение вакансии по API
-    - GET `/open-api/objects/vacancies/{vacancyId}`  
-      Тело ответа:
-```json  
+GET `/open-api/objects/vacancies/{vacancyId}`
+
+<details>
+  <summary>Поля вакансии</summary><br />
+
+- `Name` - название вакансии
+- `ExtraData.RequiredSkills` - требуемые навыки, массив строк
+- `ExtraData.WorkExperience` - требуемый опыт работы, число
+- `ExtraData.Citizenship` - требуемое гражданство, строка, одно из значений
+    - `Rus`
+    - `Kz`
+    - `Any`
+- `ExtraData.NeedDriverLicense` - требуется наличие водительских прав
+
+</details>
+<details>
+  <summary>Тело ответа</summary><br />
+
+```json
 {
   "Id": "string",
   "Name": "string",
@@ -115,17 +138,28 @@
     "ExtraData.NeedDriverLicense": true
   }
 }
-```  
-- `CalculateMatching` - алгоритм соответствия кандидата вакансии
-- Критерии соответствия вакансии и кандидата
--     Навыки - пересечение навыков от 70%
-    - Требуемый опыт работы - погрешность в 6 месяцев
-    - Требуемое гражданство - если не соответствует, то кандидат не подходит
-    - Наличие водительских прав - если не соответствует, то кандидат не подходит
-- `AddCommentToCandidate` - добавление комментария кандидату по API
-- `POST /open-api/objects/candidates/{candidateId}/notes`  
-      Тело запроса:
-```json  
+```
+
+</details>
+<br />
+<h3>3️⃣ CalculateMatching - алгоритм соответствия кандидата вакансии</h3>
+<details>
+  <summary>Критерии соответствия вакансии и кандидата</summary><br />
+
+- **Навыки** - пересечение навыков от 70%
+- **Требуемый опыт работы** - погрешность в 6 месяцев в меньшую сторону
+- **Требуемое гражданство** - если не соответствует, то кандидат не подходит. Если "Any" - не проверяем 
+- **Наличие водительских прав** - если в вакансии true, а в кандидате false - не подходит. В остальных случаях подходит по этому критерию
+
+</details>
+<br />
+<h3>4️⃣ AddCommentToCandidate - добавление комментария кандидату по API</h3>
+
+POST `/open-api/objects/candidates/{candidateId}/notes`
+<details>
+  <summary>Тело запроса</summary><br />
+
+```json
 {
   "Add": [
     {
@@ -134,3 +168,5 @@
   ]
 }
 ```
+
+</details>
