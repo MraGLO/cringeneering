@@ -1,13 +1,14 @@
-﻿using System.Net.Http.Headers;
+﻿// See https://aka.ms/new-console-template for more information
+using System.Net.Http.Headers;
 using HttpIntegrationTemplate;
 
-var token = args.FirstOrDefault();
+var token = args.FirstOrDefault("zmmQIWFhqCRzM3PNJq3bNeFq1r8Cut3sys2qlbjXAzk=");
 if (string.IsNullOrEmpty(token))
 {
     throw new Exception("Укажите токен");
 }
 
-var candidateId = "<тут укажите айди кандидата>";
+var candidateId = "655a4ed9c4423c542aeac4b8";
 
 if (string.IsNullOrEmpty(candidateId) || candidateId == token)
 {
@@ -26,5 +27,7 @@ var candidateService = new CandidateService(client);
 Console.WriteLine("Начинаем проверку кандидата");
 
 candidateService.CheckCandidate(candidateId);
+
+Console.WriteLine();
 
 Console.WriteLine("Проверка окончена");
